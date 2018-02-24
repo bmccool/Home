@@ -8,6 +8,8 @@ case $- in
       *) return;;
 esac
 
+#Set terminal to color
+export TERM=xterm-256color
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -39,6 +41,25 @@ fi
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
+esac
+
+case "$TERM" in
+*-256color)
+    alias ssh='TERM=${TERM%-256color} ssh'
+    ;;
+*)
+    POTENTIAL_TERM=${TERM}-256color
+    POTENTIAL_TERMINFO=${TERM:0:1}/$POTENTIAL_TERM
+
+    # better to check $(toe -a | awk '{print $1}') maybe?
+    BOX_TERMINFO_DIR=/usr/share/terminfo
+    [[ -f $BOX_TERMINFO_DIR/$POTENTIAL_TERMINFO ]] && \
+        export TERM=$POTENTIAL_TERM
+
+    HOME_TERMINFO_DIR=$HOME/.terminfo
+    [[ -f $HOME_TERMINFO_DIR/$POTENTIAL_TERMINFO ]] && \
+        export TERM=$POTENTIAL_TERM
+    ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned

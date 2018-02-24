@@ -1,3 +1,6 @@
+#Use 256 color term
+term screen-256color
+
 # Set the default window name to empty string instead of the arbitrary "bash"
 shelltitle ''
 
