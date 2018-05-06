@@ -6,6 +6,8 @@ Configs for home directory
 #### This will overwrite .bashrc and .bash_profile!  If there are any settings in these files that need to be saved such as environment setup, copy them to .profile.
 * git init
 * git remote add origin git@github.com:bmccool/home.git
+*     If the above doesn't work (ssh keys not setup) try:
+*     git remote add origin https://github.com/bmccool/home.git
 * git fetch --all
 * git reset --hard origin/master
 * exit and relog
