@@ -80,15 +80,22 @@ fi
 
 # Create variables for colored or non-colored prompt
 if [ "$color_prompt" = yes ]; then
+    TIME_COLOR='\033[01;31m'
+    USER_COLOR='\033[01;32m'
+    HOST_COLOR='\033[02;36m'
+    LOCATION_COLOR='\033[01;34m'
+    BRANCH_COLOR='\033[00;33m'
+
     git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
-    HOST='\033[02;36m\]\h'; HOST=' '$HOST
-    TIME='\033[01;31m\]\t \033[01;32m\]'
-    LOCATION=' \033[01;34m\]`pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
-    BRANCH=' \033[00;33m\]$(git_branch)\[\033[00m\]\n\$ '
+    TIME=$TIME_COLOR'\t '
+    USER=$USER_COLOR'\u'
+    HOST=$HOST_COLOR'\h'; HOST=' '$HOST
+    LOCATION=$LOCATION_COLOR' `pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
+    BRANCH=$BRANCH_COLOR' $(git_branch)\[\033[00m\]\n\$ '
 else
     git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
-    HOST='\h'; HOST=' '$HOST
     TIME='\t '
+    HOST='\h'; HOST=' '$HOST
     LOCATION=' `pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
     BRANCH=' $(git_branch)\n\$ '
 fi
