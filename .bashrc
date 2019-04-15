@@ -85,22 +85,24 @@ if [ "$color_prompt" = yes ]; then
     HOST_COLOR='\033[02;36m'
     LOCATION_COLOR='\033[01;34m'
     BRANCH_COLOR='\033[00;33m'
+    CLEAR_COLOR='\033[0m'
 
-    git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
-    TIME=$TIME_COLOR'\t '
-    USER=$USER_COLOR'\u'
-    HOST=$HOST_COLOR'\h'; HOST=' '$HOST
-    LOCATION=$LOCATION_COLOR' `pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
-    BRANCH=$BRANCH_COLOR' $(git_branch)\[\033[00m\]\n\$ '
 else
-    git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
-    TIME='\t '
-    HOST='\h'; HOST=' '$HOST
-    LOCATION=' `pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
-    BRANCH=' $(git_branch)\n\$ '
+    TIME_COLOR=''
+    USER_COLOR=''
+    HOST_COLOR=''
+    LOCATION_COLOR=''
+    BRANCH_COLOR=''
+    CLEAR_COLOR=''
 fi
 
-PS1=$TIME$USER$HOST$LOCATION$BRANCH
+git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
+TIME='\t '
+HOST='\h'; HOST=' '$HOST
+LOCATION=' `pwd | sed "s#\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}/\).*\(/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
+BRANCH=' $(git_branch)'
+
+PS1=$TIME_COLOR$TIME$USER_COLOR$USER$HOST_COLOR$HOST$LOCATION_COLOR$LOCATION$BRANCH_COLOR$BRANCH$CLEAR_COLOR'\n\$ '
 PS2='\[\033[01;36m\]>'
 
 unset color_prompt force_color_prompt
