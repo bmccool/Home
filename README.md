@@ -11,3 +11,4 @@ Configs for home directory
 * git fetch --all
 * git reset --hard origin/master
 * exit and relog
+* You may need to install vim-gui-common and vim-runtime if there are errors using vim
