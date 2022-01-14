@@ -9,4 +9,5 @@ git fetch --all
 git reset --hard origin/master
 
 # Fix new/git files ownership
-chown -R brendon:brendon .vim .bash_profile .bashrc .screenrc .tmux.conf .vimrc README.md download_home.sh .git
+USER=$(stat -c '%U' .)
+chown -R $USER:$USER .vim .bash_profile .bashrc .screenrc .tmux.conf .vimrc README.md download_home.sh .git
