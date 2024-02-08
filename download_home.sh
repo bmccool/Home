@@ -14,7 +14,7 @@ git fetch --all
 git reset --hard origin/master
 
 # Install Font
-mkdir /home/$USER/.fonts
+mkdir -p /home/$USER/.fonts
 sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/ComicShannsMono.zip -O /home/$USER/.fonts/ComicShannsMono.zip
 sudo chmod u+rw /home/$USER/.fonts/*
 fc-cache -fv
